@@ -41,6 +41,7 @@ namespace BasicClicker
 
             btnStart.Content = _isClicking ? "Stop (F10)" : "Start (F10)";
             lblStatus.Content = _isClicking ? "Clicker is clicking." : "Clicker is stopped.";
+            lblStartStop.Content = _isClicking ? "Press F10 to stop clicker." : "Press F10 to start clicker";
 
             if (_isClicking)
             {
