@@ -52,7 +52,7 @@ namespace BasicClicker
         {
             mouse_event(MOUSEEVENT_LEFTDOWN, 0, 0, 0, IntPtr.Zero);
             Thread.Sleep(10);
-
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, IntPtr.Zero);
         }
     }
 }
