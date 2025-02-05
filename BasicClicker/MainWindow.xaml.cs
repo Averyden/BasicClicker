@@ -47,5 +47,10 @@ namespace BasicClicker
         }
 
         private void btnStart_click(object Sender, RoutedEventArgs e) => ToggleClicker(null, null);
+
+        private void actuallyClick()
+        {
+
+        }
     }
 }
