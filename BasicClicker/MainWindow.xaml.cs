@@ -23,6 +23,8 @@ namespace BasicClicker
         {
             InitializeComponent();
 
+            lblStatus.Content = "Clicker is stopped.";
+
             // TODO: make a setting to allow the user to change their keybind.
             var keyBind = new KeyGesture(Key.F6);
             var command = new RoutedCommand();
@@ -38,6 +40,7 @@ namespace BasicClicker
             _isClicking = !_isClicking;
 
             btnStart.Content = _isClicking ? "Stop (F6)" : "Start (F6)";
+            lblStatus.Content = _isClicking ? "Clicker is clicking." : "Clicker is stopped.";
 
             if (_isClicking)
             {
