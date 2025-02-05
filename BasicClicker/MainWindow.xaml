@@ -23,7 +23,7 @@
                FontSize="16"
                Grid.Row="0"/>
 
-        <Label x:Name="lblStartStop" Content="Press F6 to start clicker"
+        <Label x:Name="lblStartStop" Content="Press F10 to start clicker"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                FontSize="20"
@@ -35,11 +35,12 @@
                FontSize="12"
                Grid.Row="2"/>
 
-        <Button x:Name="btnStart" Content="Start (F6)"
+        <Button x:Name="btnStart" Content="Start (F10)"
                 Width="150" Height="40"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="14"
-                Grid.Row="3"/>
+                Grid.Row="3"
+                Click="btnStart_click"/>
     </Grid>
 </Window>
