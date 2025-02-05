@@ -17,7 +17,7 @@
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
-        <Label x:Name="lblStatus" Content="Clicker is not working"
+        <Label x:Name="lblStatus" Content="Window didn't load right it seems"
                HorizontalAlignment="Center" 
                VerticalAlignment="Center"
                FontSize="16"
