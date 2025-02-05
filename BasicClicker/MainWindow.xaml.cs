@@ -45,5 +45,7 @@ namespace BasicClicker
                 _timer.Stop();
             }
         }
+
+        private void btnStart_click(object Sender, RoutedEventArgs e) => ToggleClicker(null, null);
     }
 }
