@@ -1,13 +1,6 @@
-﻿using System.Text;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace BasicClicker
 {
@@ -16,6 +9,12 @@ namespace BasicClicker
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer _timer;
+        private bool _isClicking = false;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, IntPtr dwExtraInfo);
+
         public MainWindow()
         {
             InitializeComponent();
