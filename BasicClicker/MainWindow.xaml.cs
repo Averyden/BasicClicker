@@ -33,7 +33,17 @@ namespace BasicClicker
 
         private void ToggleClicker(object sender, ExecutedRoutedEventArgs e)
         {
+            _isClicking = !_isClicking;
 
+            btnStart.Content = _isClicking ? "Stop (F6)" : "Start (F6)";
+
+            if (_isClicking)
+            {
+                _timer.Start();
+            } else
+            {
+                _timer.Stop();
+            }
         }
     }
 }
