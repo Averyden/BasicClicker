@@ -29,6 +29,8 @@ namespace BasicClicker
             command.InputGestures.Add(keyBind);
             CommandBindings.Add(new CommandBinding(command, ToggleClicker));
 
+            _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100) };
+            _timer.Tick += (s, e) => actuallyClick();
         }
 
         private void ToggleClicker(object sender, ExecutedRoutedEventArgs e)
