@@ -27,7 +27,7 @@ namespace BasicClicker
             var keyBind = new KeyGesture(Key.F6);
             var command = new RoutedCommand();
             command.InputGestures.Add(keyBind);
-            //CommandBindings.Add(new CommandBinding(command, whatever we call the method later on));
+            CommandBindings.Add(new CommandBinding(command, ToggleClicker));
 
         }
 
