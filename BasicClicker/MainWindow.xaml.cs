@@ -30,5 +30,10 @@ namespace BasicClicker
             //CommandBindings.Add(new CommandBinding(command, whatever we call the method later on));
 
         }
+
+        private void ToggleClicker(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
     }
 }
