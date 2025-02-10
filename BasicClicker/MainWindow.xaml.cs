@@ -57,7 +57,12 @@ namespace BasicClicker
 
                 registerHotkey(hWnd, HOTKEY_ID, MOD_NOREPEAT, VK_F10);
             };
-             
+
+            Closing += (s, e) =>
+            {
+                IntPtr hWnd = new WindowInteropHelper(this).Handle;
+                unregisterHotkey(hWnd, HOTKEY_ID);
+            };
 
 
         }
