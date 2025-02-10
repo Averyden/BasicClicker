@@ -20,10 +20,10 @@ namespace BasicClicker
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, IntPtr dwExtraInfo);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool registerHotkey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool unregisterHotkey(IntPtr hWnd, int id);
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
 
         private const uint MOUSEEVENT_LEFTDOWN = 0x02;
@@ -55,13 +55,13 @@ namespace BasicClicker
                 HwndSource source = HwndSource.FromHwnd(hWnd);
                 source.AddHook(WndProc);
 
-                registerHotkey(hWnd, HOTKEY_ID, MOD_NOREPEAT, VK_F10);
+                RegisterHotKey(hWnd, HOTKEY_ID, MOD_NOREPEAT, VK_F10);
             };
 
             Closing += (s, e) =>
             {
                 IntPtr hWnd = new WindowInteropHelper(this).Handle;
-                unregisterHotkey(hWnd, HOTKEY_ID);
+                UnregisterHotKey(hWnd, HOTKEY_ID);
             };
 
 
