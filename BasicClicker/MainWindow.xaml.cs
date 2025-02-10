@@ -17,10 +17,10 @@ namespace BasicClicker
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, IntPtr dwExtraInfo);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern void registerHotkey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+        private static extern bool registerHotkey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern void unregisterHotkey(IntPtr hWnd, int id);
+        private static extern bool unregisterHotkey(IntPtr hWnd, int id);
 
 
         private const uint MOUSEEVENT_LEFTDOWN = 0x02;
