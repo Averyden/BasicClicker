@@ -1,7 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
-using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Threading;
+
 
 namespace BasicClicker
 {
@@ -16,8 +19,20 @@ namespace BasicClicker
         [DllImport("user32.dll", SetLastError = true)]
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, IntPtr dwExtraInfo);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+
         private const uint MOUSEEVENT_LEFTDOWN = 0x02;
         private const uint MOUSEEVENTF_LEFTUP = 0x04;
+
+        private const int HOTKEY_ID = 9000;
+        private const uint MOD_NOREPEAT = 0x4000;
+        private const uint VK_F10 = 0x79;
+
 
         public MainWindow()
         {
@@ -26,16 +41,43 @@ namespace BasicClicker
             lblStatus.Content = "Clicker is stopped.";
 
             // TODO: make a setting to allow the user to change their keybind.
-            var keyBind = new KeyGesture(Key.F10);
-            var command = new RoutedCommand();
-            command.InputGestures.Add(keyBind);
-            CommandBindings.Add(new CommandBinding(command, ToggleClicker));
+           
 
             _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(30) };
             _timer.Tick += (s, e) => actuallyClick();
+
+            Loaded += (s, e) =>
+            {
+                IntPtr hWnd = new WindowInteropHelper(this).Handle;
+                HwndSource source = HwndSource.FromHwnd(hWnd);
+                source.AddHook(WndProc);
+
+                RegisterHotKey(hWnd, HOTKEY_ID, MOD_NOREPEAT, VK_F10);
+            };
+
+            Closing += (s, e) =>
+            {
+                IntPtr hWnd = new WindowInteropHelper(this).Handle;
+                UnregisterHotKey(hWnd, HOTKEY_ID);
+            };
+
+
         }
 
-        private void ToggleClicker(object sender, ExecutedRoutedEventArgs e)
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            const int WM_HOTKEY = 0x0312;
+
+            if (msg == WM_HOTKEY && wParam.ToInt32() == HOTKEY_ID)
+            {
+                ToggleClicker();
+                handled = true;
+            }
+            return IntPtr.Zero;
+        }
+
+        private void ToggleClicker()
         {
             _isClicking = !_isClicking;
 
@@ -46,13 +88,14 @@ namespace BasicClicker
             if (_isClicking)
             {
                 _timer.Start();
-            } else
+            }
+            else
             {
                 _timer.Stop();
             }
         }
 
-        private void btnStart_click(object Sender, RoutedEventArgs e) => ToggleClicker(null, null);
+        private void btnStart_click(object Sender, RoutedEventArgs e) => ToggleClicker();
 
         private void actuallyClick()
         {
