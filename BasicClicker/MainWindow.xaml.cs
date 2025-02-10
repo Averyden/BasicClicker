@@ -53,8 +53,11 @@ namespace BasicClicker
             {
                 IntPtr hWnd = new WindowInteropHelper(this).Handle;
                 HwndSource source = HwndSource.FromHwnd(hWnd);
-            };
+                source.AddHook(WndProc);
 
+                registerHotkey(hWnd, HOTKEY_ID, MOD_NOREPEAT, VK_F10);
+            };
+             
 
 
         }
