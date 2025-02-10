@@ -1,7 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
-using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Threading;
+
 
 namespace BasicClicker
 {
@@ -45,6 +48,13 @@ namespace BasicClicker
 
             _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(30) };
             _timer.Tick += (s, e) => actuallyClick();
+
+            Loaded += (s,e) =>
+            {
+                IntPtr hWnd = new WindowInteropHelper(this).Handle;
+
+            }
+
         }
 
         private void ToggleClicker(object sender, ExecutedRoutedEventArgs e)
