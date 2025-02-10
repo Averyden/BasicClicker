@@ -49,11 +49,13 @@ namespace BasicClicker
             _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(30) };
             _timer.Tick += (s, e) => actuallyClick();
 
-            Loaded += (s,e) =>
+            Loaded += (s, e) =>
             {
                 IntPtr hWnd = new WindowInteropHelper(this).Handle;
+                HwndSource source = HwndSource.FromHwnd(hWnd);
+            };
 
-            }
+           
 
         }
 
