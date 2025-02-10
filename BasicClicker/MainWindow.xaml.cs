@@ -26,6 +26,11 @@ namespace BasicClicker
         private const uint MOUSEEVENT_LEFTDOWN = 0x02;
         private const uint MOUSEEVENTF_LEFTUP = 0x04;
 
+        private const int HOTKEY_ID = 9000;
+        private const uint MOD_NOREPEAT = 0x4000;
+        private const uint VK_F10 = 0x79;
+
+
         public MainWindow()
         {
             InitializeComponent();
