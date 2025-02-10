@@ -55,11 +55,24 @@ namespace BasicClicker
                 HwndSource source = HwndSource.FromHwnd(hWnd);
             };
 
-           
+
 
         }
 
-        private void ToggleClicker(object sender, ExecutedRoutedEventArgs e)
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            const int WM_HOTKEY = 0x0312;
+
+            if (msg == WM_HOTKEY && wParam.ToInt32() == HOTKEY_ID)
+            {
+                ToggleClicker();
+                handled = true;
+            }
+            return IntPtr.Zero;
+        }
+
+        private void ToggleClicker()
         {
             _isClicking = !_isClicking;
 
@@ -70,13 +83,14 @@ namespace BasicClicker
             if (_isClicking)
             {
                 _timer.Start();
-            } else
+            }
+            else
             {
                 _timer.Stop();
             }
         }
 
-        private void btnStart_click(object Sender, RoutedEventArgs e) => ToggleClicker(null, null);
+        private void btnStart_click(object Sender, RoutedEventArgs e) => ToggleClicker();
 
         private void actuallyClick()
         {
