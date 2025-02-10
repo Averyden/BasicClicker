@@ -41,10 +41,7 @@ namespace BasicClicker
             lblStatus.Content = "Clicker is stopped.";
 
             // TODO: make a setting to allow the user to change their keybind.
-            //var keyBind = new KeyGesture(Key.F10);
-            //var command = new RoutedCommand();
-            //command.InputGestures.Add(keyBind);
-            //CommandBindings.Add(new CommandBinding(command, ToggleClicker));
+           
 
             _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(30) };
             _timer.Tick += (s, e) => actuallyClick();
